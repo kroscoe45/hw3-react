@@ -5,7 +5,7 @@ const router = Router({
   mergeParams: true
 });
 
-router.post('/', async (req, res) => {
+router.post('/:trackId', async (req, res) => {
   const trackId = req.params.trackId
   const tag = req.body
   try {
@@ -16,12 +16,12 @@ router.post('/', async (req, res) => {
   res.status(200).end()
 })
 
-router.get('/', async (req, res) => {
+router.get('/:trackId', async (req, res) => {
   const tags = await getTagsForTrack(req.params.trackId)
   res.json(tags)
 })
 
-router.put('/:tagName/user-votes/my', async (req, res) => {
+router.put('/:trackId/:tagName/user-votes/my', async (req, res) => {
   const trackId = req.params.trackId
   const tagName = req.params.tagName
   const vote = !!req.body

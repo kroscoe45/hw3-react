@@ -6,7 +6,7 @@ import {
   moveTrack,
   removeTrackFromPlaylist,
   setIsPublic
-} from '../models/mongodb/playlists.mjs'
+} from '../models/mongodb/playlists.ts'
 
 const router = Router()
 
