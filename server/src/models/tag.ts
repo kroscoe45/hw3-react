@@ -1,4 +1,4 @@
-import { UserId } from "./user";
+import { UserId } from "./user.model";
 
 export type TagId = string;
 

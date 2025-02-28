@@ -1,4 +1,4 @@
-export * from "./track";
-export * from "./playlist";
+export * from "./track.model";
+export * from "./playlist.model";
 export * from "./tag"
-export * from "./user";
+export * from "./user.model";
