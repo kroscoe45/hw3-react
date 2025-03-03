@@ -1,15 +1,12 @@
-// server/src/models/playlist.model.ts
+// Mongoose model for playlists - the main entity in our app
+// Stores metadata and list of tracks
 import mongoose, { Document, Schema } from 'mongoose';
 
-/* 
- * Playlist model defines the structure for user playlists
- * Contains track information and references the user who created it
- */
 export interface Playlist extends Document {
   title: string;
   isPublic: boolean;
-  owner: string;     // References public-facing userId
-  tracklist: string[]; // Array of track IDs
+  owner: string;          // References public-facing userId
+  tracklist: string[];    // Array of track IDs
   createdAt: Date;
   updatedAt: Date;
 }
@@ -40,7 +37,7 @@ const PlaylistSchema: Schema = new Schema(
   }
 );
 
-// Create indexes for better query performance
+// better query performance
 PlaylistSchema.index({ owner: 1 });
 PlaylistSchema.index({ isPublic: 1 });
 

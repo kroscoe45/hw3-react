@@ -8,6 +8,15 @@ import { v4 as uuidv4 } from 'uuid';
  * Manages the integration between Auth0 users and the application's user data
  */
 
+// Extend Express Request type to include user property
+declare global {
+  namespace Express {
+    interface Request {
+      user?: any; // Ideally, this should be a more specific type
+    }
+  }
+}
+
 // Get the authenticated user's profile
 export const getUserProfile = async (req: Request, res: Response): Promise<void> => {
   try {

@@ -1,10 +1,8 @@
+// Connects Auth0 users with our app's user records
+// Stores basic profile info and a public ID for references
 import mongoose, { Document, Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 
-/* 
- * User model interfaces with Auth0 user data
- * Stores additional user information and references to user's playlists
- */
 export interface User extends Document {
   auth0Id: string;
   userId: string;

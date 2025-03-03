@@ -1,14 +1,15 @@
-// src/server.ts
+// Main server entry point - sets up Express and all the routes
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import { connectToDatabase } from './config/database.config';
+import { connectToDatabase } from './config/db.config';
 
 // Import routes
 import playlistRoutes from './routes/playlist.routes';
 import userRoutes from './routes/user.routes';
+import trackRoutes from './routes/track.routes';
 
 // Load environment variables
 dotenv.config();
@@ -29,9 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/playlists', playlistRoutes);
-app.use('/api/auth', userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/tracks', trackRoutes);
 
-// Health check endpoint
+// Health check endpoint (thought i wouldnt need this, but here we are)
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });

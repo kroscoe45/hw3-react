@@ -1,35 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Main app component - the entry point for everything.
+// Just checks if you're logged in and shows the router if you are.
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useAuth0 } from '@auth0/auth0-react';
+import AppRouter from './routes';
+import './App.css';
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+const App = (): JSX.Element => {
+  const { isLoading, error } = useAuth0();
 
-export default App
+  if (isLoading) {
+    return <div className="loading">Loading application...</div>;
+  }
+
+  if (error) {
+    return <div className="error">Authentication Error: {error.message}</div>;
+  }
+
+  return <AppRouter />;
+};
+
+export default App;
