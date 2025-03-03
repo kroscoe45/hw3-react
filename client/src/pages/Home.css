@@ -28,32 +28,62 @@
   color: #e5e7eb;
 }
 
-.buttons-container {
+.home-page {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.home-actions {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   margin-top: 2rem;
 }
 
-.action-button {
-  background-color: #6366f1;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+/* Custom homepage button styling similar to navbar but enclosed */
+.home-button {
+  display: inline-block;
+  background-color: #1a1a1a;
+  color: #e5e7eb;
   text-decoration: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #333;
+  font-weight: 500;
+  font-size: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.2s, background-color 0.2s;
 }
 
-.action-button:hover {
-  background-color: #4f46e5;
+.home-button::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #6366f1;
+  transition: width 0.3s;
+}
+
+.home-button:hover {
+  color: #6366f1;
+  background-color: #222;
+}
+
+.home-button:hover::after {
+  width: 100%;
 }
 
 @media (max-width: 768px) {
-  .buttons-container {
+  .home-actions {
     flex-direction: column;
     gap: 0.75rem;
+  }
+  
+  .home-button {
+    width: 80%;
+    margin: 0 auto;
   }
 }

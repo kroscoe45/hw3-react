@@ -8,16 +8,20 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Navbar styling */
+/* Navbar styling - using grid for three distinct sections */
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;  /* Three equal sections: left, center, right */
   align-items: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0.75rem 1rem;
   color: white;
+}
+
+.navbar-brand {
+  justify-self: start;  /* Align to the left */
 }
 
 .navbar-brand a {
@@ -33,6 +37,7 @@
 }
 
 .navbar-menu {
+  justify-self: center;  /* Center the navigation links */
   display: flex;
   gap: 1.5rem;
   align-items: center;
@@ -66,6 +71,7 @@
 }
 
 .navbar-auth {
+  justify-self: end;  /* Align to the right */
   display: flex;
   align-items: center;
 }
@@ -97,6 +103,7 @@
 
 @media (max-width: 768px) {
   .navbar {
+    display: flex;  /* Fall back to flex on mobile */
     flex-direction: column;
     padding: 1rem;
   }
@@ -104,6 +111,7 @@
   .navbar-brand, .navbar-menu, .navbar-auth {
     width: 100%;
     margin-bottom: 0.5rem;
+    justify-self: center;  /* Center all elements on mobile */
   }
   
   .navbar-menu {

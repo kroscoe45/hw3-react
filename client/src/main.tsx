@@ -1,7 +1,5 @@
-// main.tsx
 // The app's bootstrap file - where all the magic starts.
-// Sets up React DOM, wraps everything in the required providers,
-// and kicks off the whole app. Pretty standard React stuff.
+// kicks off the whole app.
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

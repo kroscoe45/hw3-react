@@ -8,6 +8,7 @@ import { connectToDatabase } from './config/db.config';
 
 // Import routes
 import playlistRoutes from './routes/playlist.routes';
+import tagRoutes from './routes/tag.routes';
 import userRoutes from './routes/user.routes';
 import trackRoutes from './routes/track.routes';
 
@@ -32,6 +33,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/playlists', playlistRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tracks', trackRoutes);
+app.use('/api', tagRoutes); 
+
 
 // Health check endpoint (thought i wouldnt need this, but here we are)
 app.get('/health', (req, res) => {

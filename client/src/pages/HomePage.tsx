@@ -14,16 +14,16 @@ const HomePage = (): JSX.Element => {
       <p>Create and manage your music playlists</p>
       
       <div className="home-actions">
-        <Link to="/playlists/public" className="action-button">
+        <Link to="/playlists/public" className="home-button">
           Browse Public Playlists
         </Link>
         
         {isAuthenticated ? (
-          <Link to="/playlists" className="action-button">
+          <Link to="/playlists" className="home-button">
             My Playlists
           </Link>
         ) : (
-          <button onClick={() => loginWithRedirect()} className="action-button">
+          <button onClick={() => loginWithRedirect()} className="home-button">
             Login to Create Playlists
           </button>
         )}

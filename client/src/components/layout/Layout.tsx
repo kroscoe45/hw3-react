@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
-import './Layout.css';
+import '../.css/Layout.css';
 
 // Layout component wraps all pages with common elements like navbar
 // prevents duplication of these elements across different pages

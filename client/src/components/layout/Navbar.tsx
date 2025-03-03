@@ -2,7 +2,7 @@
 // Fixed it by using a container/content pattern
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import './Navbar.css';
+import '../.css/Navbar.css';
 
 const Navbar = (): JSX.Element => {
   const { isAuthenticated, loginWithRedirect, logout, user, isLoading } = useAuth0();
