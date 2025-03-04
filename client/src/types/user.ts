@@ -7,6 +7,8 @@ export interface User {
   auth0Id: string;
   userId: string;
   username: string;
+  email: string;
+  displayName: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -15,4 +17,5 @@ export interface User {
 export interface PublicUserProfile {
   userId: string;
   username: string;
+  displayName: string;
 }

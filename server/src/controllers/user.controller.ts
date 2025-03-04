@@ -22,21 +22,31 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
   try {
     const auth0Id = req.auth?.payload.sub;
     
+    if (!auth0Id) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
+
     // Find user in our database
     let user = await User.findOne({ auth0Id });
     
     // If user doesn't exist in our database, create a new one
     if (!user) {
-      // Get username from Auth0 profile or generate one
+      console.log(`Creating new user for Auth0 ID: ${auth0Id}`);
+      // Get user info from Auth0 profile
       const username = req.auth?.payload.nickname || `user_${Date.now()}`;
+      const email = req.auth?.payload.email || '';
       
       user = new User({
         auth0Id,
         userId: uuidv4(), // Generate a unique public ID
-        username
+        username,
+        email,
+        displayName: '' // Initially empty, user will set this
       });
       
       await user.save();
+      console.log(`User created with ID: ${user.userId}`);
     }
     
     res.json(user);
@@ -46,21 +56,40 @@ export const getUserProfile = async (req: Request, res: Response): Promise<void>
   }
 };
 
-// Update username
-export const updateUsername = async (req: Request, res: Response): Promise<void> => {
+// Update user profile details
+export const updateUserProfile = async (req: Request, res: Response): Promise<void> => {
   try {
     const auth0Id = req.auth?.payload.sub;
-    const { username } = req.body;
+    const { username, displayName } = req.body;
     
-    if (!username) {
-      res.status(400).json({ error: 'Username is required' });
+    // Validate required fields
+    if (displayName !== undefined && displayName.trim() === '') {
+      res.status(400).json({ error: 'Display name cannot be empty' });
       return;
     }
+    
+    // Check if displayName is already taken
+    if (displayName) {
+      const existingUser = await User.findOne({ 
+        displayName: displayName.trim(),
+        auth0Id: { $ne: auth0Id } // Exclude current user from check
+      });
+      
+      if (existingUser) {
+        res.status(400).json({ error: 'Display name is already taken' });
+        return;
+      }
+    }
+    
+    // Prepare update object
+    const updateData: any = {};
+    if (username) updateData.username = username;
+    if (displayName !== undefined) updateData.displayName = displayName.trim();
     
     // Find and update user
     const user = await User.findOneAndUpdate(
       { auth0Id },
-      { username },
+      updateData,
       { new: true }
     );
     
@@ -70,8 +99,12 @@ export const updateUsername = async (req: Request, res: Response): Promise<void>
     }
     
     res.json(user);
-  } catch (error) {
-    console.error('Error updating username:', error);
+  } catch (error : any) {
+    console.error('Error updating user profile:', error);
+    if (error.code === 11000) {
+      res.status(400).json({ error: 'Display name is already taken' });
+      return;
+    }
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -91,7 +124,8 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
     // Return only public information
     res.json({
       userId: user.userId,
-      username: user.username
+      username: user.username,
+      displayName: user.displayName
     });
   } catch (error) {
     console.error('Error getting user:', error);
@@ -115,11 +149,14 @@ export const ensureUserExists = async (req: Request, res: Response, next: NextFu
     // If user doesn't exist, create a new one with Auth0 profile data
     if (!user) {
       const username = req.auth?.payload.nickname || `user_${Date.now()}`;
+      const email = req.auth?.payload.email || '';
       
       user = new User({
         auth0Id,
         userId: uuidv4(), // Generate a unique public ID
-        username
+        username,
+        email,
+        displayName: ''
       });
       
       await user.save();

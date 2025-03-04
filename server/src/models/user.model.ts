@@ -7,6 +7,8 @@ export interface User extends Document {
   auth0Id: string;
   userId: string;
   username: string;
+  email: string;
+  displayName: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,10 +30,24 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+      required: true,
+    },
+    displayName: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,
   }
 );
+
+// Index for checking displayName uniqueness
+UserSchema.index({ displayName: 1 }, { 
+  unique: true, 
+  partialFilterExpression: { displayName: { $ne: "" } }
+});
 
 export default mongoose.model<User>('User', UserSchema);

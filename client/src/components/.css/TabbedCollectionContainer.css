@@ -1,0 +1,114 @@
+.tabbed-container {
+    width: 100%;
+    margin-bottom: 2rem;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: 1px solid #3a3a3a;
+  }
+  
+  .tabs-header {
+    display: flex;
+    background-color: #1a1a1a;
+    padding-left: 8px;
+    padding-top: 8px;
+  }
+  
+  .tab-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #333;
+    border: 1px solid #444;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 4px;
+    position: relative;
+    top: 1px;
+    color: #e5e7eb;
+  }
+  
+  .tab-button:hover:not(.disabled) {
+    background-color: #444;
+  }
+  
+  .tab-button.active {
+    background-color: #2a2a2a;
+    font-weight: 600;
+    border-bottom-color: #2a2a2a;
+  }
+  
+  .tab-button.disabled {
+    color: #777;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  .tabs-content {
+    padding: 1.5rem;
+    background-color: #2a2a2a;
+    min-height: 300px;
+  }
+  
+  /* Theme options - can be applied via className prop */
+  .tabbed-container.light-theme {
+    background-color: #f5f5f5;
+    border-color: #e0e0e0;
+  }
+  
+  .light-theme .tabs-header {
+    background-color: #e8e8e8;
+  }
+  
+  .light-theme .tab-button {
+    background-color: #ddd;
+    border-color: #ccc;
+    color: #333;
+  }
+  
+  .light-theme .tab-button:hover:not(.disabled) {
+    background-color: #eee;
+  }
+  
+  .light-theme .tab-button.active {
+    background-color: #f5f5f5;
+    border-bottom-color: #f5f5f5;
+  }
+  
+  .light-theme .tabs-content {
+    background-color: #f5f5f5;
+  }
+  
+  /* Compact theme for less vertical space */
+  .tabbed-container.compact {
+    margin-bottom: 1rem;
+  }
+  
+  .compact .tabs-header {
+    padding-top: 4px;
+    padding-left: 4px;
+  }
+  
+  .compact .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .compact .tabs-content {
+    padding: 1rem;
+    min-height: 200px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .tabs-header {
+      padding-left: 4px;
+    }
+    
+    .tab-button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
