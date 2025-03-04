@@ -1,5 +1,6 @@
 // client/src/types/track.ts
-// Basic model for tracks - nothing fancy since we
+// Basic model for tracks - nothing fancy 
+// since we are boring
 
 export interface Track {
   _id: string;

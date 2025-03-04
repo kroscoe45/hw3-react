@@ -1,0 +1,104 @@
+/* PlaylistCard.css */
+.playlist-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #3a3a3a;
+    margin-bottom: 12px;
+  }
+  
+  .playlist-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .playlist-card-content {
+    flex: 1;
+  }
+  
+  .playlist-card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .playlist-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .playlist-title a {
+    color: #e5e7eb;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .playlist-title a:hover {
+    color: #6366f1;
+  }
+  
+  .visibility-badge {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    margin-left: 12px;
+  }
+  
+  .visibility-badge.public {
+    background-color: #16a34a;
+    color: white;
+  }
+  
+  .visibility-badge.private {
+    background-color: #6b7280;
+    color: white;
+  }
+  
+  .playlist-meta {
+    font-size: 14px;
+    color: #9ca3af;
+  }
+  
+  .dot-separator {
+    margin: 0 6px;
+  }
+  
+  .playlist-card-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-button, .delete-button {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .edit-button {
+    background-color: #4b5563;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .edit-button:hover {
+    background-color: #374151;
+  }
+  
+  .delete-button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+  }
+  
+  .delete-button:hover {
+    background-color: #dc2626;
+  }

@@ -5,8 +5,13 @@ import * as TagController from '../controllers/tag.controller';
 
 const router = express.Router();
 
-// Get all tags for a playlist
-router.get('/playlists/:playlistId/tags', TagController.getPlaylistTags);
+const optionalAuth = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    checkJwt(req, res, (err) => {
+      next(); // continue whether the user is authenticated so we dont need another route
+    });
+  };
+
+router.get('/playlists/:playlistId/tags', optionalAuth, canAccessPlaylist, TagController.getPlaylistTags);
 
 // Protected routes that require authentication
 router.post('/playlists/:playlistId/tags', checkJwt, TagController.addTagToPlaylist);

@@ -1,4 +1,3 @@
-// server/src/models/index.ts
 /*
  * This barrel file exports all models for easy import throughout the application.
  * It allows importing multiple models from a single import statement.

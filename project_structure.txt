@@ -1,16 +1,16 @@
-Project Structure - git
-Generated on Mon Mar  3 07:16:05 PM PST 2025
+Project Structure - hw3-react
+Generated on Mon Mar  3 11:11:53 PM PST 2025
 ----------------------------------------
 
-git/
+hw3-react/
     └── client/
+        └── dist/
         └── eslint.config.js
         └── index.html
         └── node_modules/
         └── package.json
         └── public/
             └── vite.svg
-        └── README.md
         └── src/
             └── App.css
             └── App.tsx
@@ -26,6 +26,7 @@ git/
                     └── LoginButton.tsx
                     └── LogoutButton.tsx
                     └── ProtectedRoute.tsx
+                    └── RequireCompleteProfile.tsx
                 └── layout/
                     └── Layout.tsx
                     └── Navbar.tsx
@@ -33,11 +34,14 @@ git/
                     └── AddTrackForm.tsx
                     └── TrackItem.tsx
                     └── TrackList.tsx
+                └── ui-containers/
+                    └── TabbedCollectionContainer.tsx
             └── hooks/
                 └── UseAuthStatus.ts
             └── index.css
             └── main.tsx
             └── pages/
+                └── AccountDetailsPage.tsx
                 └── CreatePlaylistPage.tsx
                 └── EditPlaylistPage.tsx
                 └── Home.css
@@ -75,6 +79,7 @@ git/
     └── pnpm-workspace.yaml
     └── project_structure.txt
     └── server/
+        └── dist/
         └── node_modules/
         └── package.json
         └── src/

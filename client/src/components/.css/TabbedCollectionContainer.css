@@ -52,7 +52,7 @@
     min-height: 300px;
   }
   
-  /* Theme options - can be applied via className prop */
+  /* you can use the className prop if you want to change theme */
   .tabbed-container.light-theme {
     background-color: #f5f5f5;
     border-color: #e0e0e0;

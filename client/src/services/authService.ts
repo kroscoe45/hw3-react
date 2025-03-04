@@ -30,13 +30,8 @@ export const useAuthToken = () => {
 };
 
 // Get user profile from API
-export const getUserProfile = async (): Promise<User> => {
-  const { getAccessTokenSilently } = useAuth0();
-  
+export const getUserProfile = async (token: string): Promise<User> => {
   try {
-    const token = await getAccessTokenSilently();
-    
-    // Use the /users/me endpoint that matches your backend
     const response = await fetch(`${API_URL}/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,

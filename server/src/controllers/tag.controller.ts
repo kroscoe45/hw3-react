@@ -9,31 +9,6 @@ export const getPlaylistTags = async (req: Request, res: Response): Promise<void
   try {
     const { playlistId } = req.params;
     
-    // Check if playlist exists and is accessible
-    const playlist = await Playlist.findById(playlistId);
-    if (!playlist) {
-      res.status(404).json({ error: 'Playlist not found' });
-      return;
-    }
-    
-    // If playlist is private, check if user is authenticated and is the owner
-    if (!playlist.isPublic) {
-      const auth0Id = req.auth?.payload.sub;
-      
-      // If not authenticated, deny access
-      if (!auth0Id) {
-        res.status(403).json({ error: 'You do not have permission to view tags for this playlist' });
-        return;
-      }
-      
-      // Get user's public userId
-      const user = await User.findOne({ auth0Id });
-      if (!user || user.userId !== playlist.owner) {
-        res.status(403).json({ error: 'You do not have permission to view tags for this playlist' });
-        return;
-      }
-    }
-    
     // Fetch tags associated with this playlist
     const tags = await Tag.find({ playlists: playlistId });
     

@@ -1,4 +1,4 @@
-import { Tag } from '../types/tag';
+import { Tag } from '../types/tag.ts';
 
 const API_URL = '/api';
 

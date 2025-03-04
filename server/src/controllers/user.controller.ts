@@ -133,6 +133,11 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
   }
 };
 
+
+
+// We dont use this anymore but i didnt want to delete it because
+// it might be useful for reference later and i worked hard on it
+/*
 // Middleware to ensure user exists in our database and attach to request
 export const ensureUserExists = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -171,3 +176,4 @@ export const ensureUserExists = async (req: Request, res: Response, next: NextFu
     res.status(500).json({ error: 'Server error' });
   }
 };
+*/

@@ -31,29 +31,59 @@ export const useAuthStatus = () => {
           
           console.log("Attempting to fetch user profile...");
           try {
+            console.log("Attempting to fetch user profile with token");
             const response = await fetch(`${API_URL}/users/me`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             });
             
+            // If we get a response, the user should be created in the database
+            const profile = await response.json();
+            
             if (!response.ok) {
-              throw new Error(`Failed with status: ${response.status}`);
+              console.error(`Failed with status: ${response.status}`, profile);
+              throw new Error(profile.error || `Failed with status: ${response.status}`);
             }
             
-            const profile = await response.json();
             console.log("Successfully fetched user profile from API");
             setUserProfile(profile);
           } catch (apiError) {
             console.warn(`API request failed: ${apiError}`);
             
-            // If API request fails, create profile from Auth0 user data
+            // On first login if there's an issue, retry once
+            if ((apiError as Error).message.includes('404')) {
+              try {
+                console.log('User not found, retrying...');
+                // Short delay before retry
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                const retryResponse = await fetch(`${API_URL}/users/me`, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                });
+                
+                if (retryResponse.ok) {
+                  const profile = await retryResponse.json();
+                  console.log("Successfully fetched user profile on retry");
+                  setUserProfile(profile);
+                  return;
+                }
+              } catch (retryError) {
+                console.error("Retry failed:", retryError);
+              }
+            }
+            
+            // If API request fails, create profile from Auth0 user data as fallback
             if (user) {
-              console.log('Creating user profile from Auth0 data');
+              console.log('Creating user profile from Auth0 data as fallback');
               const fallbackProfile: User = {
                 auth0Id: user.sub || '',
                 userId: user.sub || '',
                 username: user.name || user.email || 'User',
+                email: user.email || '',
+                displayName: '',
                 createdAt: new Date().toISOString(),
                 updatedAt: new Date().toISOString()
               };

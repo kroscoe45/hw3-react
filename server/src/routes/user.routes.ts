@@ -3,7 +3,7 @@
 import { Router } from 'express';
 import { 
   getUserProfile,
-  updateUsername,
+  updateUserProfile,
   getUserById,
   ensureUserExists
 } from '../controllers/user.controller';
@@ -14,8 +14,8 @@ const router = Router();
 // Protected routes - require authentication
 // FUTURE KYLE - REMEMBER 
 // PUT THESE BEFORE THE PARAM ROUTES IF YOU MAKE CHANGES HERE
-router.get('/me', checkJwt, ensureUserExists, getUserProfile);
-router.put('/me', checkJwt, ensureUserExists, updateUsername);
+router.get('/me', checkJwt, getUserProfile); // Removed ensureUserExists since getUserProfile now handles creation
+router.put('/me', checkJwt, updateUserProfile);
 
 // Public routes with userId parameter
 router.get('/:userId', getUserById);

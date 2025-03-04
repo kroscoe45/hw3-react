@@ -14,30 +14,32 @@ interface Auth0ProviderWithNavigateProps {
 const Auth0ProviderWithNavigate = ({ children }: Auth0ProviderWithNavigateProps) => {
   const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
+  
+  const cleanupAuthState = (): void => {
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('auth0.')) {
+        localStorage.removeItem(key);
+      }
+    });
+    
+    Object.keys(sessionStorage).forEach(key => {
+      if (key.startsWith('auth0.')) {
+        sessionStorage.removeItem(key);
+      }
+    });
+  };
 
   // fix site stuck loading if user used to be logged in
-  useEffect(() => {
-    const cleanupAuthState = () => {
-      // check disagreements in auth state 
+  useEffect(() => { 
+    const checkAuthState = () => {
       if (localStorage.getItem('auth0.is.authenticated') === 'true' && 
           !sessionStorage.getItem('auth0.is.authenticated')) {
         console.log('Detected inconsistent auth state, cleaning up...');
-        // clear em out
-        Object.keys(localStorage).forEach(key => {
-          if (key.startsWith('auth0.')) {
-            localStorage.removeItem(key);
-          }
-        });
-        Object.keys(sessionStorage).forEach(key => {
-          if (key.startsWith('auth0.')) {
-            sessionStorage.removeItem(key);
-          }
-        });
+        cleanupAuthState();
       }
       setIsInitialized(true);
     };
-
-    cleanupAuthState();
+    checkAuthState();
   }, []);
 
   if (!isConfigValid()) {

@@ -8,6 +8,8 @@ import UserPlaylistsPage from '../pages/UserPlaylistsPage';
 import PlaylistDetailPage from '../pages/PlaylistDetailPage';
 import CreatePlaylistPage from '../pages/CreatePlaylistPage';
 import EditPlaylistPage from '../pages/EditPlaylistPage';
+import RequireCompleteProfile from '../components/auth/RequireCompleteProfile';
+import AccountDetailsPage from '../pages/AccountDetailsPage';
 import NotFoundPage from '../pages/NotFoundPage';
 
 // Auth component
@@ -27,13 +29,25 @@ const AppRouter = (): JSX.Element => {
         {/* Public routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/playlists/public" element={<PublicPlaylistsPage />} />
-        
+        {/* Account route */}
+        <Route 
+          path="/account" 
+          element={
+            <ProtectedRoute>
+              <AccountDetailsPage />
+            </ProtectedRoute>
+          } 
+        />
+
         {/* Protected routes - Auth checking handled by ProtectedRoute component */}
+        {/* We also protect the pages from users who need to set a display name still*/}
         <Route 
           path="/playlists" 
           element={
             <ProtectedRoute>
-              <UserPlaylistsPage />
+              <RequireCompleteProfile>
+                <UserPlaylistsPage />
+              </RequireCompleteProfile>
             </ProtectedRoute>
           } 
         />
@@ -41,7 +55,9 @@ const AppRouter = (): JSX.Element => {
           path="/playlists/create" 
           element={
             <ProtectedRoute>
-              <CreatePlaylistPage />
+              <RequireCompleteProfile>
+                <CreatePlaylistPage />
+              </RequireCompleteProfile>
             </ProtectedRoute>
           } 
         />
@@ -49,7 +65,9 @@ const AppRouter = (): JSX.Element => {
           path="/playlists/:id/edit" 
           element={
             <ProtectedRoute>
-              <EditPlaylistPage />
+              <RequireCompleteProfile>
+                <EditPlaylistPage />
+              </RequireCompleteProfile>
             </ProtectedRoute>
           } 
         />

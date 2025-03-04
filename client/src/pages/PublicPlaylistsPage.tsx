@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getPublicPlaylists } from '../services/playlistService';
+import PlaylistsGrid from '../components/playlist/PlaylistGrid';
 import { Playlist } from '../types/playlist';
 
 // This is the main browsing page that anyone can access
@@ -31,15 +32,20 @@ const PublicPlaylistsPage = (): JSX.Element => {
   return (
     <div className="public-playlists-page">
       <h1>Public Playlists</h1>
-      
-      {loading ? (
-        <p>Loading playlists...</p>
-      ) : error ? (
-        <p className="error-message">{error}</p>
-      ) : playlists.length === 0 ? (
-        <p>No public playlists found</p>
-      ) : (
-        <div className="playlists-grid">
+      <PlaylistsGrid 
+        playlists={playlists}
+        isLoading={loading}
+        emptyMessage="No public playlists found"
+      />
+      {/*
+      {loading ? (                                    // if we are loading
+        <p>Loading playlists...</p>                   // show loading message
+      ) : error ? (                                   // if there was an error              
+        <p className="error-message">{error}</p>      // show error message
+      ) : playlists.length === 0 ? (                  // if no playlists found
+        <p>No public playlists found</p>              // show no playlists message
+      ) : (                                           // otherwise show the playlists
+        <div className="  -grid">                     
           {playlists.map((playlist) => (
             <div key={playlist._id} className="playlist-card">
               <h3>{playlist.title}</h3>
@@ -51,7 +57,7 @@ const PublicPlaylistsPage = (): JSX.Element => {
           ))}
         </div>
       )}
-      
+      */}
       {/* 
         Would be cool to add sorting/filtering here:
         - By popularity
