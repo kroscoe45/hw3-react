@@ -1,5 +1,5 @@
 Project Structure - hw3-react
-Generated on Mon Mar  3 11:11:53 PM PST 2025
+Generated on Tue Mar  4 11:34:39 AM PST 2025
 ----------------------------------------
 
 hw3-react/
@@ -30,6 +30,9 @@ hw3-react/
                 └── layout/
                     └── Layout.tsx
                     └── Navbar.tsx
+                └── playlist/
+                    └── PlaylistCard.tsx
+                    └── PlaylistGrid.tsx
                 └── tracks/
                     └── AddTrackForm.tsx
                     └── TrackItem.tsx
@@ -41,6 +44,7 @@ hw3-react/
             └── index.css
             └── main.tsx
             └── pages/
+                └── AccountDetails.css
                 └── AccountDetailsPage.tsx
                 └── CreatePlaylistPage.tsx
                 └── EditPlaylistPage.tsx
@@ -68,6 +72,7 @@ hw3-react/
         └── tsconfig.app.json
         └── tsconfig.json
         └── tsconfig.node.json
+        └── upload-client-assistant.sh
         └── vite.config.ts
     └── create_ai_upload.sh
     └── gen_structure.sh
@@ -100,6 +105,7 @@ hw3-react/
                 └── track.model.ts
                 └── user.model.ts
             └── routes/
+                └── dev.routes.ts
                 └── playlist.routes.ts
                 └── tag.routes.ts
                 └── track.routes.ts
@@ -109,5 +115,6 @@ hw3-react/
                 └── express/
                     └── index.d.ts
         └── tsconfig.json
+        └── upload-server-assistant.sh
 
 ----------------------------------------

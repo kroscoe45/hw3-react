@@ -1,7 +1,3 @@
-// auth/Auth0Provider.tsx
-// Wrapper for Auth0 provider that adds navigation support
-// Had to add cleanup for persistent auth state inconsistencies
-// because users would get stuck at loading screen (what a pain)
 import { ReactNode, useEffect, useState } from 'react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
@@ -11,28 +7,28 @@ interface Auth0ProviderWithNavigateProps {
   children: ReactNode;
 }
 
+// Create the cleanup function 
+const cleanupAuthState = (): void => {
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith('auth0.')) {
+      localStorage.removeItem(key);
+    }
+  });
+  
+  Object.keys(sessionStorage).forEach(key => {
+    if (key.startsWith('auth0.')) {
+      sessionStorage.removeItem(key);
+    }
+  });
+};
+
 const Auth0ProviderWithNavigate = ({ children }: Auth0ProviderWithNavigateProps) => {
   const navigate = useNavigate();
   const [isInitialized, setIsInitialized] = useState(false);
-  
-  const cleanupAuthState = (): void => {
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith('auth0.')) {
-        localStorage.removeItem(key);
-      }
-    });
-    
-    Object.keys(sessionStorage).forEach(key => {
-      if (key.startsWith('auth0.')) {
-        sessionStorage.removeItem(key);
-      }
-    });
-  };
 
-  // fix site stuck loading if user used to be logged in
-  useEffect(() => { 
+  useEffect(() => {
     const checkAuthState = () => {
-      if (localStorage.getItem('auth0.is.authenticated') === 'true' && 
+      if (localStorage.getItem('auth0.is.authenticated') === 'true' &&
           !sessionStorage.getItem('auth0.is.authenticated')) {
         console.log('Detected inconsistent auth state, cleaning up...');
         cleanupAuthState();
@@ -42,6 +38,7 @@ const Auth0ProviderWithNavigate = ({ children }: Auth0ProviderWithNavigateProps)
     checkAuthState();
   }, []);
 
+  // Rest of the component remains the same
   if (!isConfigValid()) {
     return (
       <div className="auth-error">
@@ -55,7 +52,6 @@ const Auth0ProviderWithNavigate = ({ children }: Auth0ProviderWithNavigateProps)
     return <div>Initializing authentication...</div>;
   }
 
-  // redirect callback
   const onRedirectCallback = (appState: any) => {
     navigate(appState?.returnTo || window.location.pathname);
   };
@@ -78,4 +74,5 @@ const Auth0ProviderWithNavigate = ({ children }: Auth0ProviderWithNavigateProps)
   );
 };
 
-export default Auth0ProviderWithNavigate;
+// Export both the component and the cleanup function
+export { Auth0ProviderWithNavigate, cleanupAuthState }

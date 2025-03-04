@@ -5,7 +5,6 @@ import {
   getUserProfile,
   updateUserProfile,
   getUserById,
-  ensureUserExists
 } from '../controllers/user.controller';
 import { checkJwt } from '../middleware/auth.middleware';
 

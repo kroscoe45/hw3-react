@@ -72,9 +72,6 @@ export const getPlaylistWithTracks = async (req: Request, res: Response): Promis
       res.status(404).json({ error: 'Playlist not found' });
       return;
     }
-    
-    // Access control handled by middleware
-    
     // Fetch track details for all trackIds in the playlist
     const tracks = await Track.find({ trackId: { $in: playlist.tracklist } });
     
